@@ -3,7 +3,7 @@
     <h1>Sistema de Logística</h1>
     
     <% if user_signed_in? %>
-      <h2>Bienvenido, <%= current_user.email %>!</h2>
+      <h2>Bienvenido, <%= current_user.name || current_user.email %>!</h2>
       <p>Has iniciado sesión correctamente en el sistema.</p>
     <% else %>
       <h2>Bienvenido al Sistema de Logística</h2>

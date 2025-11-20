@@ -1,7 +1,8 @@
 # Crear usuario administrador
 admin = User.find_or_create_by(email: 'admin@logistics.com') do |user|
-  user.password = 'admin123'
-  user.password_confirmation = 'admin123'
+  user.name = 'Administrador'
+  user.password = 'password123'
+  user.password_confirmation = 'password123'
   user.role = 'admin'
 end
 
@@ -9,8 +10,9 @@ puts "Usuario administrador creado: #{admin.email}" if admin.persisted?
 
 # Crear usuario manager
 manager = User.find_or_create_by(email: 'manager@logistics.com') do |user|
-  user.password = 'manager123'
-  user.password_confirmation = 'manager123'
+  user.name = 'Manager'
+  user.password = 'password123'
+  user.password_confirmation = 'password123'
   user.role = 'manager'
 end
 

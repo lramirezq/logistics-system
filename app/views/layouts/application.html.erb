@@ -36,7 +36,7 @@
         </div>
         <div>
           <% if user_signed_in? %>
-            Hola, <%= current_user.email %> (<%= current_user.role.capitalize %>)
+            Hola, <%= current_user.name || current_user.email %> (<%= current_user.role.capitalize %>)
             <%= button_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "btn-link" %>
           <% else %>
             <%= link_to "Iniciar Sesión", new_user_session_path %>
