@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_20_014553) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_20_020220) do
+  create_table "activity_logs", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "action", null: false
+    t.string "resource_type"
+    t.integer "resource_id"
+    t.text "description"
+    t.string "ip_address"
+    t.text "user_agent"
+    t.datetime "performed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["performed_at"], name: "index_activity_logs_on_performed_at"
+    t.index ["resource_type", "resource_id"], name: "index_activity_logs_on_resource_type_and_resource_id"
+    t.index ["user_id", "performed_at"], name: "index_activity_logs_on_user_id_and_performed_at"
+    t.index ["user_id"], name: "index_activity_logs_on_user_id"
+  end
+
   create_table "communes", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -145,6 +162,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_014553) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "activity_logs", "users"
   add_foreign_key "communes", "provinces"
   add_foreign_key "company_relationships", "companies", column: "client_id"
   add_foreign_key "company_relationships", "companies", column: "related_company_id"

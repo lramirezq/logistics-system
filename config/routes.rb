@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :activity_logs, only: [:index, :show]
   resources :operations
   get "users/index"
   get "users/show"

@@ -16,10 +16,18 @@
               <small><%= pluralize(client.contacts.active.count, 'contacto') %> | <%= pluralize(client.subclients.count, 'subcliente') %> | <%= pluralize(client.client_providers.count, 'proveedor') %></small>
             </div>
             <div>
-              <%= link_to "Ver", client, class: "btn btn-secondary" %>
-              <%= link_to "Editar", edit_company_path(client), class: "btn btn-secondary" %>
-              <%= link_to "Subcliente", new_company_path(parent_id: client.id, relationship_type: 'subclient'), class: "btn btn-primary" %>
-              <%= link_to "Proveedor", new_company_path(parent_id: client.id, relationship_type: 'provider'), class: "btn btn-primary" %>
+              <%= link_to client, title: "Ver", style: "margin-right: 0.5rem; color: #3b82f6; text-decoration: none; font-size: 1.2rem;" do %>
+                👁️
+              <% end %>
+              <%= link_to edit_company_path(client), title: "Editar", style: "margin-right: 0.5rem; color: #f59e0b; text-decoration: none; font-size: 1.2rem;" do %>
+                ✏️
+              <% end %>
+              <%= link_to new_company_path(parent_id: client.id, relationship_type: 'subclient'), title: "Agregar Subcliente", style: "margin-right: 0.5rem; color: #10b981; text-decoration: none; font-size: 1.2rem;" do %>
+                👥
+              <% end %>
+              <%= link_to new_company_path(parent_id: client.id, relationship_type: 'provider'), title: "Agregar Proveedor", style: "color: #8b5cf6; text-decoration: none; font-size: 1.2rem;" do %>
+                🏭
+              <% end %>
             </div>
           </div>
         </div>
@@ -37,8 +45,12 @@
               <small><%= pluralize(provider.contacts.active.count, 'contacto') %></small>
             </div>
             <div>
-              <%= link_to "Ver", provider, class: "btn btn-secondary" %>
-              <%= link_to "Editar", edit_company_path(provider), class: "btn btn-secondary" %>
+              <%= link_to provider, title: "Ver", style: "margin-right: 0.5rem; color: #3b82f6; text-decoration: none; font-size: 1.2rem;" do %>
+                👁️
+              <% end %>
+              <%= link_to edit_company_path(provider), title: "Editar", style: "color: #f59e0b; text-decoration: none; font-size: 1.2rem;" do %>
+                ✏️
+              <% end %>
             </div>
           </div>
         </div>

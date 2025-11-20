@@ -25,20 +25,24 @@
   <body>
     <nav class="navbar">
       <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-        <div>
+        <div style="display: flex; align-items: center;">
+          <%= link_to root_path do %>
+            <%= image_tag "libro-color.png", alt: "Logo", style: "height: 40px; margin-right: 1rem;" %>
+          <% end %>
           <%= link_to "Inicio", root_path %>
           <% if user_signed_in? %>
             <%= link_to "Empresas", companies_path %>
             <%= link_to "Operaciones", operations_path %>
             <% if current_user.admin? %>
               <%= link_to "Usuarios", users_path %>
+              <%= link_to "Historial", activity_logs_path %>
             <% end %>
           <% end %>
         </div>
         <div>
           <% if user_signed_in? %>
             Hola, <%= current_user.name || current_user.email %> (<%= current_user.role.capitalize %>)
-            <%= button_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "btn-link" %>
+            <%= button_to "Cerrar Sesión", destroy_user_session_path, method: :delete, class: "btn-link", data: { turbo: false } %>
           <% else %>
             <%= link_to "Iniciar Sesión", new_user_session_path %>
           <% end %>

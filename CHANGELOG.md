@@ -2,6 +2,32 @@
 
 Todos los cambios notables de este proyecto serán documentados en este archivo.
 
+## [1.2.0] - 2024-11-20
+
+### ✨ Agregado
+- **Sistema de Auditoría** completo para tracking de actividades
+- **Historial de actividades** con filtros por usuario, acción y fechas
+- **Logging automático** de login, logout, CRUD operations
+- **Información detallada** de IP, User Agent y timestamps
+- **Acceso restringido** solo para administradores
+
+### 🎨 Interfaz
+- **Iconos en lugar de botones** para acciones (Ver, Editar, Eliminar)
+- **Logos actualizados** en menú y página de bienvenida
+- **Iconos específicos** para agregar subclientes y proveedores
+- **Alineación mejorada** de iconos en tablas
+- **Colores intuitivos** por tipo de acción
+
+### 🔧 Corregido
+- **Logout funcionando** correctamente con Turbo
+- **Callbacks de auditoría** sin interferir con Devise
+- **Tracking selectivo** evitando controladores problemáticos
+
+### 🔒 Seguridad
+- **Auditoría completa** de todas las acciones del usuario
+- **Registro de sesiones** con información de contexto
+- **Historial protegido** solo para administradores
+
 ## [1.1.0] - 2024-11-20
 
 ### ✨ Agregado

@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="card">
+    <h1>Historial de Actividades</h1>
+    
+    <!-- Filtros -->
+    <%= form_with url: activity_logs_path, method: :get, local: true do |f| %>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; padding: 1rem; background-color: #f8fafc; border-radius: 4px;">
+        <div class="form-group">
+          <%= f.label :user_id, "Usuario", class: "form-label" %>
+          <%= f.select :user_id, 
+              options_from_collection_for_select(@users, :id, ->(u) { u.name || u.email }, params[:user_id]),
+              { prompt: 'Todos los usuarios' }, 
+              { class: "form-input" } %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.label :action_filter, "Acción", class: "form-label" %>
+          <%= f.select :action_filter, 
+              options_for_select(@actions.map { |a| [ActivityLog::ACTIONS[a], a] }, params[:action_filter]),
+              { prompt: 'Todas las acciones' }, 
+              { class: "form-input" } %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.label :date_from, "Desde", class: "form-label" %>
+          <%= f.date_field :date_from, value: params[:date_from], class: "form-input" %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.label :date_to, "Hasta", class: "form-label" %>
+          <%= f.date_field :date_to, value: params[:date_to], class: "form-input" %>
+        </div>
+        
+        <div class="form-group" style="display: flex; align-items: end;">
+          <%= f.submit "Filtrar", class: "btn btn-primary" %>
+          <%= link_to "Limpiar", activity_logs_path, class: "btn btn-secondary", style: "margin-left: 0.5rem;" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background-color: #f8fafc; border-bottom: 2px solid #e5e7eb;">
+            <th style="padding: 1rem; text-align: left;">Fecha/Hora</th>
+            <th style="padding: 1rem; text-align: left;">Usuario</th>
+            <th style="padding: 1rem; text-align: left;">Acción</th>
+            <th style="padding: 1rem; text-align: left;">Recurso</th>
+            <th style="padding: 1rem; text-align: left;">Descripción</th>
+            <th style="padding: 1rem; text-align: left;">IP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @activity_logs.each do |log| %>
+            <tr style="border-bottom: 1px solid #e5e7eb;">
+              <td style="padding: 1rem; font-size: 0.875rem;">
+                <%= log.performed_at.strftime('%d/%m/%Y %H:%M') %>
+              </td>
+              <td style="padding: 1rem;">
+                <%= log.user.name || log.user.email %>
+              </td>
+              <td style="padding: 1rem;">
+                <span style="background-color: <%= log.action == 'login' ? '#10b981' : log.action == 'destroy' ? '#ef4444' : '#3b82f6' %>; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem;">
+                  <%= log.action_name %>
+                </span>
+              </td>
+              <td style="padding: 1rem;">
+                <%= log.resource_name if log.resource_type %>
+              </td>
+              <td style="padding: 1rem; font-size: 0.875rem;">
+                <%= log.description %>
+              </td>
+              <td style="padding: 1rem; font-size: 0.875rem; color: #6b7280;">
+                <%= log.ip_address %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      
+      <% if @activity_logs.empty? %>
+        <div style="text-align: center; padding: 2rem; color: #6b7280;">
+          No hay actividades registradas con los filtros seleccionados.
+        </div>
+      <% end %>
+    </div>
+    
+    <div style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280;">
+      Mostrando las últimas 100 actividades
+    </div>
+  </div>
+</div>

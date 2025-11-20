@@ -30,10 +30,19 @@
               <td style="padding: 1rem;"><%= operation.etd.strftime('%d/%m/%Y') if operation.etd %></td>
               <td style="padding: 1rem;"><%= operation.eta.strftime('%d/%m/%Y') if operation.eta %></td>
               <td style="padding: 1rem; text-align: center;">
-                <%= link_to "Ver", operation, class: "btn btn-secondary", style: "margin-right: 0.5rem;" %>
-                <%= link_to "Editar", edit_operation_path(operation), class: "btn btn-secondary", style: "margin-right: 0.5rem;" %>
-                <%= button_to "Eliminar", operation, method: :delete, 
-                    confirm: "¿Estás seguro?", class: "btn btn-secondary" %>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 0.5rem;">
+                  <%= link_to operation, title: "Ver", style: "color: #3b82f6; text-decoration: none; font-size: 1.2rem;" do %>
+                    👁️
+                  <% end %>
+                  <%= link_to edit_operation_path(operation), title: "Editar", style: "color: #f59e0b; text-decoration: none; font-size: 1.2rem;" do %>
+                    ✏️
+                  <% end %>
+                  <%= button_to operation, method: :delete, 
+                      confirm: "¿Estás seguro?", title: "Eliminar", 
+                      style: "background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.2rem; padding: 0; margin: 0;" do %>
+                    ❌
+                  <% end %>
+                </div>
               </td>
             </tr>
           <% end %>
