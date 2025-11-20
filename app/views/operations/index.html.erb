@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <h1>Operaciones</h1>
+      <%= link_to "Nueva Operación", new_operation_path, class: "btn btn-primary" %>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background-color: #f8fafc; border-bottom: 2px solid #e5e7eb;">
+            <th style="padding: 1rem; text-align: left;">N° Operación</th>
+            <th style="padding: 1rem; text-align: left;">Tipo</th>
+            <th style="padding: 1rem; text-align: left;">Fecha</th>
+            <th style="padding: 1rem; text-align: left;">Shipper</th>
+            <th style="padding: 1rem; text-align: left;">Consignatario</th>
+            <th style="padding: 1rem; text-align: left;">ETD</th>
+            <th style="padding: 1rem; text-align: left;">ETA</th>
+            <th style="padding: 1rem; text-align: center;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @operations.each do |operation| %>
+            <tr style="border-bottom: 1px solid #e5e7eb;">
+              <td style="padding: 1rem;"><%= operation.numero_operacion %></td>
+              <td style="padding: 1rem;"><%= operation.tipo_operacion %></td>
+              <td style="padding: 1rem;"><%= operation.fecha.strftime('%d/%m/%Y') if operation.fecha %></td>
+              <td style="padding: 1rem;"><%= operation.shipper&.nombre_comercial || operation.shipper&.razon_social %></td>
+              <td style="padding: 1rem;"><%= operation.consignatario&.nombre_comercial || operation.consignatario&.razon_social %></td>
+              <td style="padding: 1rem;"><%= operation.etd.strftime('%d/%m/%Y') if operation.etd %></td>
+              <td style="padding: 1rem;"><%= operation.eta.strftime('%d/%m/%Y') if operation.eta %></td>
+              <td style="padding: 1rem; text-align: center;">
+                <%= link_to "Ver", operation, class: "btn btn-secondary", style: "margin-right: 0.5rem;" %>
+                <%= link_to "Editar", edit_operation_path(operation), class: "btn btn-secondary", style: "margin-right: 0.5rem;" %>
+                <%= button_to "Eliminar", operation, method: :delete, 
+                    confirm: "¿Estás seguro?", class: "btn btn-secondary" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      
+      <% if @operations.empty? %>
+        <div style="text-align: center; padding: 2rem; color: #6b7280;">
+          No hay operaciones registradas.
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

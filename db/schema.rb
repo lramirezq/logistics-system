@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_20_004650) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_20_014553) do
   create_table "communes", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -76,6 +76,45 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_004650) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "operations", force: :cascade do |t|
+    t.integer "numero_operacion"
+    t.string "tipo_operacion"
+    t.date "fecha"
+    t.integer "shipper_id"
+    t.integer "consignatario_id"
+    t.integer "ref_cliente_id"
+    t.string "emisor_master"
+    t.string "vessel_vuelo"
+    t.date "etd"
+    t.date "eta"
+    t.string "origen"
+    t.string "destino"
+    t.integer "agente_id"
+    t.integer "compania_id"
+    t.string "naviera"
+    t.string "numero_contenedor"
+    t.decimal "volumen", precision: 10, scale: 2
+    t.decimal "peso", precision: 10, scale: 2
+    t.string "bl_master"
+    t.string "bl_hijo"
+    t.decimal "fact_afecta", precision: 12, scale: 2
+    t.decimal "fact_exenta", precision: 12, scale: 2
+    t.decimal "fact_extranj", precision: 12, scale: 2
+    t.decimal "compra_afecta", precision: 12, scale: 2
+    t.decimal "compra_exenta", precision: 12, scale: 2
+    t.text "observaciones"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agente_id"], name: "index_operations_on_agente_id"
+    t.index ["compania_id"], name: "index_operations_on_compania_id"
+    t.index ["consignatario_id"], name: "index_operations_on_consignatario_id"
+    t.index ["fecha"], name: "index_operations_on_fecha"
+    t.index ["numero_operacion"], name: "index_operations_on_numero_operacion", unique: true
+    t.index ["ref_cliente_id"], name: "index_operations_on_ref_cliente_id"
+    t.index ["shipper_id"], name: "index_operations_on_shipper_id"
+    t.index ["tipo_operacion"], name: "index_operations_on_tipo_operacion"
+  end
+
   create_table "provinces", force: :cascade do |t|
     t.string "name"
     t.integer "region_id", null: false
@@ -110,6 +149,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_004650) do
   add_foreign_key "company_relationships", "companies", column: "client_id"
   add_foreign_key "company_relationships", "companies", column: "related_company_id"
   add_foreign_key "contacts", "companies"
+  add_foreign_key "operations", "companies", column: "agente_id"
+  add_foreign_key "operations", "companies", column: "compania_id"
+  add_foreign_key "operations", "companies", column: "consignatario_id"
+  add_foreign_key "operations", "companies", column: "ref_cliente_id"
+  add_foreign_key "operations", "companies", column: "shipper_id"
   add_foreign_key "provinces", "regions"
   add_foreign_key "regions", "countries"
 end

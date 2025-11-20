@@ -2,6 +2,29 @@
 
 Todos los cambios notables de este proyecto serán documentados en este archivo.
 
+## [1.1.0] - 2024-11-20
+
+### ✨ Agregado
+- **Sistema de Operaciones** completo con todos los campos logísticos
+- **Formularios de operaciones** para crear, editar y visualizar
+- **Relaciones con empresas** por tipo (Shipper, Consignatario, Agente, etc.)
+- **Campos financieros** para facturación y compras
+- **Numeración automática** correlativa de operaciones
+- **Validaciones** de datos y tipos de operación
+- **Navegación** integrada en menú principal
+
+### 🔧 Corregido
+- **Error de unicidad** en código de empresas vacío
+- **Métodos privados** en modelo Company ahora públicos
+- **Select de clientes** muestra nombre comercial o razón social
+- **Formularios** con valores preseleccionados correctamente
+
+### 📱 Interfaz
+- **Vista detallada** de operaciones con información organizada
+- **Formularios responsive** con grid layout
+- **Listado de operaciones** con datos clave
+- **Selects dinámicos** filtrados por tipo de empresa
+
 ## [1.0.0] - 2024-11-20
 
 ### ✨ Agregado

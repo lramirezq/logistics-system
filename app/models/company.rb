@@ -21,6 +21,14 @@ class Company < ApplicationRecord
   validates :company_type, presence: true, inclusion: { in: TYPES }
   validates :tipo_empresa, presence: true, inclusion: { in: TIPOS_EMPRESA }
   validates :codigo, uniqueness: true, allow_blank: true
+  
+  before_validation :set_codigo_to_nil_if_blank
+  
+  private
+  
+  def set_codigo_to_nil_if_blank
+    self.codigo = nil if codigo.blank?
+  end
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
 
   # Scopes
@@ -30,6 +38,8 @@ class Company < ApplicationRecord
   scope :main_companies, -> { joins('LEFT JOIN company_relationships ON companies.id = company_relationships.related_company_id').where(company_relationships: { id: nil }) }
 
   # Métodos
+  public
+  
   def client?
     company_type == 'client'
   end

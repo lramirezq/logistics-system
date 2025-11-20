@@ -1,0 +1,57 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  numero_operacion: 1
+  tipo_operacion: MyString
+  fecha: 2025-11-19
+  shipper: one
+  consignatario: one
+  ref_cliente: one
+  emisor_master: MyString
+  vessel_vuelo: MyString
+  etd: 2025-11-19
+  eta: 2025-11-19
+  origen: MyString
+  destino: MyString
+  agente: one
+  compania: one
+  naviera: MyString
+  numero_contenedor: MyString
+  volumen: 9.99
+  peso: 9.99
+  bl_master: MyString
+  bl_hijo: MyString
+  fact_afecta: 9.99
+  fact_exenta: 9.99
+  fact_extranj: 9.99
+  compra_afecta: 9.99
+  compra_exenta: 9.99
+  observaciones: MyText
+
+two:
+  numero_operacion: 1
+  tipo_operacion: MyString
+  fecha: 2025-11-19
+  shipper: two
+  consignatario: two
+  ref_cliente: two
+  emisor_master: MyString
+  vessel_vuelo: MyString
+  etd: 2025-11-19
+  eta: 2025-11-19
+  origen: MyString
+  destino: MyString
+  agente: two
+  compania: two
+  naviera: MyString
+  numero_contenedor: MyString
+  volumen: 9.99
+  peso: 9.99
+  bl_master: MyString
+  bl_hijo: MyString
+  fact_afecta: 9.99
+  fact_exenta: 9.99
+  fact_extranj: 9.99
+  compra_afecta: 9.99
+  compra_exenta: 9.99
+  observaciones: MyText

@@ -1,0 +1,183 @@
+<div class="container">
+  <div class="card" style="max-width: 800px; margin: 2rem auto;">
+    <h2>Nueva Operación</h2>
+
+    <%= form_with model: @operation do |f| %>
+      <% if @operation.errors.any? %>
+        <div style="color: red; margin-bottom: 1rem;">
+          <% @operation.errors.full_messages.each do |message| %>
+            <p><%= message %></p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <%= f.label :tipo_operacion, "Tipo de Operación", class: "form-label" %>
+          <%= f.select :tipo_operacion, 
+              options_for_select(Operation::TIPOS_OPERACION.map { |tipo| [tipo, tipo] }),
+              { prompt: 'Seleccionar tipo' }, 
+              { class: "form-input" } %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :fecha, "Fecha", class: "form-label" %>
+          <%= f.date_field :fecha, class: "form-input" %>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <%= f.label :shipper_id, "Shipper", class: "form-label" %>
+          <%= f.select :shipper_id, 
+              options_from_collection_for_select(@shippers, :id, :nombre_comercial),
+              { prompt: 'Seleccionar shipper' }, 
+              { class: "form-input" } %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :consignatario_id, "Consignatario", class: "form-label" %>
+          <%= f.select :consignatario_id, 
+              options_from_collection_for_select(@consignatarios, :id, :nombre_comercial),
+              { prompt: 'Seleccionar consignatario' }, 
+              { class: "form-input" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :ref_cliente_id, "Ref Cliente", class: "form-label" %>
+        <%= f.select :ref_cliente_id, 
+            options_from_collection_for_select(@clientes, :id, ->(c) { c.nombre_comercial.present? ? c.nombre_comercial : c.razon_social }),
+            { prompt: 'Seleccionar cliente' }, 
+            { class: "form-input" } %>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <%= f.label :emisor_master, "Emisor Master", class: "form-label" %>
+          <%= f.text_field :emisor_master, class: "form-input" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :vessel_vuelo, "Vessel/Vuelo", class: "form-label" %>
+          <%= f.text_field :vessel_vuelo, class: "form-input" %>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <%= f.label :etd, "SALIDA/ETD", class: "form-label" %>
+          <%= f.date_field :etd, class: "form-input" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :eta, "LLEGADA/ETA", class: "form-label" %>
+          <%= f.date_field :eta, class: "form-input" %>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <%= f.label :origen, "Origen", class: "form-label" %>
+          <%= f.text_field :origen, class: "form-input" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :destino, "Destino", class: "form-label" %>
+          <%= f.text_field :destino, class: "form-input" %>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <%= f.label :agente_id, "Agente", class: "form-label" %>
+          <%= f.select :agente_id, 
+              options_from_collection_for_select(@agentes, :id, :nombre_comercial),
+              { prompt: 'Seleccionar agente' }, 
+              { class: "form-input" } %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :compania_id, "Compañía", class: "form-label" %>
+          <%= f.select :compania_id, 
+              options_from_collection_for_select(@companias, :id, :nombre_comercial),
+              { prompt: 'Seleccionar compañía' }, 
+              { class: "form-input" } %>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <%= f.label :naviera, "Naviera", class: "form-label" %>
+          <%= f.text_field :naviera, class: "form-input" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :numero_contenedor, "N° Contenedor", class: "form-label" %>
+          <%= f.text_field :numero_contenedor, class: "form-input" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :volumen, "Volumen", class: "form-label" %>
+          <%= f.number_field :volumen, step: 0.01, class: "form-input" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :peso, "Peso", class: "form-label" %>
+        <%= f.number_field :peso, step: 0.01, class: "form-input" %>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <%= f.label :bl_master, "B/L Master", class: "form-label" %>
+          <%= f.text_field :bl_master, class: "form-input" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :bl_hijo, "B/L Hijo", class: "form-label" %>
+          <%= f.text_field :bl_hijo, class: "form-input" %>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <%= f.label :fact_afecta, "FACT_AFECTA", class: "form-label" %>
+          <%= f.number_field :fact_afecta, step: 0.01, class: "form-input" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :fact_exenta, "FACT_EXENTA", class: "form-label" %>
+          <%= f.number_field :fact_exenta, step: 0.01, class: "form-input" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :fact_extranj, "FACT_EXTRANJ", class: "form-label" %>
+          <%= f.number_field :fact_extranj, step: 0.01, class: "form-input" %>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <%= f.label :compra_afecta, "COMPRA_AFECTA", class: "form-label" %>
+          <%= f.number_field :compra_afecta, step: 0.01, class: "form-input" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :compra_exenta, "COMPRA_EXENTA", class: "form-label" %>
+          <%= f.number_field :compra_exenta, step: 0.01, class: "form-input" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :observaciones, "Observaciones", class: "form-label" %>
+        <%= f.text_area :observaciones, rows: 3, class: "form-input" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit "Crear Operación", class: "btn btn-primary" %>
+        <%= link_to "Cancelar", operations_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

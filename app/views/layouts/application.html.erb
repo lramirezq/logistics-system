@@ -29,6 +29,7 @@
           <%= link_to "Inicio", root_path %>
           <% if user_signed_in? %>
             <%= link_to "Empresas", companies_path %>
+            <%= link_to "Operaciones", operations_path %>
             <% if current_user.admin? %>
               <%= link_to "Usuarios", users_path %>
             <% end %>
