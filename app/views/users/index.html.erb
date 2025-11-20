@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <h1>Administración de Usuarios</h1>
+      <%= link_to "Nuevo Usuario", new_user_path, class: "btn btn-primary" %>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background-color: #f8fafc; border-bottom: 2px solid #e5e7eb;">
+            <th style="padding: 1rem; text-align: left;">Email</th>
+            <th style="padding: 1rem; text-align: left;">Rol</th>
+            <th style="padding: 1rem; text-align: left;">Creado</th>
+            <th style="padding: 1rem; text-align: center;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr style="border-bottom: 1px solid #e5e7eb;">
+              <td style="padding: 1rem;"><%= user.email %></td>
+              <td style="padding: 1rem;">
+                <span style="background-color: <%= user.admin? ? '#dc3545' : user.manager? ? '#ffc107' : '#28a745' %>; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem;">
+                  <%= user.role.capitalize %>
+                </span>
+              </td>
+              <td style="padding: 1rem;"><%= user.created_at.strftime('%d/%m/%Y') %></td>
+              <td style="padding: 1rem; text-align: center;">
+                <%= link_to "Editar", edit_user_path(user), class: "btn btn-secondary", style: "margin-right: 0.5rem;" %>
+                <% unless user == current_user %>
+                  <%= button_to "Eliminar", user, method: :delete, 
+                      confirm: "¿Estás seguro?", class: "btn btn-secondary" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

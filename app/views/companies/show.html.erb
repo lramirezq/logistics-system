@@ -1,0 +1,115 @@
+<div class="container">
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <h1><%= @company.name %></h1>
+      <div>
+        <%= link_to "Editar", edit_company_path(@company), class: "btn btn-secondary" %>
+        <%= link_to "Volver", companies_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+      <div>
+        <h3>Información General</h3>
+        <p><strong>Código:</strong> <%= @company.codigo %></p>
+        <p><strong>Razón Social:</strong> <%= @company.razon_social %></p>
+        <p><strong>Nombre Comercial:</strong> <%= @company.nombre_comercial %></p>
+        <p><strong>Tipo de Empresa:</strong> <%= @company.tipo_empresa %></p>
+        <p><strong>Tipo:</strong> <%= @company.company_type.capitalize %></p>
+        <p><strong>RUT:</strong> <%= @company.tax_id %></p>
+        <p><strong>Email:</strong> <%= @company.email %></p>
+        <p><strong>Teléfono:</strong> <%= @company.phone %></p>
+        <p><strong>Dirección:</strong> <%= @company.address %></p>
+        <% if @company.country.present? %>
+          <p><strong>País:</strong> <%= @company.country %></p>
+          <% if @company.country == 'Chile' && @company.region.present? %>
+            <p><strong>Región:</strong> <%= @company.region %></p>
+            <% if @company.province.present? %>
+              <p><strong>Provincia:</strong> <%= @company.province %></p>
+            <% end %>
+            <% if @company.commune.present? %>
+              <p><strong>Comuna:</strong> <%= @company.commune %></p>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <h2>Contactos</h2>
+      <%= link_to "Nuevo Contacto", new_company_contact_path(@company), class: "btn btn-primary" %>
+    </div>
+    
+    <% @contacts.each do |contact| %>
+      <div class="card" style="margin-bottom: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h4><%= contact.name %></h4>
+            <p><%= contact.position %> | <%= contact.email %> | <%= contact.phone %></p>
+          </div>
+          <div>
+            <%= link_to "Editar", edit_company_contact_path(@company, contact), class: "btn btn-secondary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @company.client? %>
+      <% if @subclients&.any? %>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0 1rem 0;">
+          <h2>Subclientes</h2>
+          <%= link_to "Nuevo Subcliente", new_company_path(parent_id: @company.id, relationship_type: 'subclient'), class: "btn btn-primary" %>
+        </div>
+        
+        <% @subclients.each do |subclient| %>
+          <div class="card" style="margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <h4><%= link_to subclient.name, subclient %></h4>
+                <p><%= subclient.email %> | <%= subclient.phone %></p>
+              </div>
+              <div>
+                <%= link_to "Ver", subclient, class: "btn btn-secondary" %>
+                <%= link_to "Editar", edit_company_path(subclient), class: "btn btn-secondary" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0 1rem 0;">
+          <h2>Subclientes</h2>
+          <%= link_to "Nuevo Subcliente", new_company_path(parent_id: @company.id, relationship_type: 'subclient'), class: "btn btn-primary" %>
+        </div>
+        <p style="color: #6b7280; font-style: italic;">No hay subclientes registrados</p>
+      <% end %>
+      
+      <% if @providers&.any? %>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0 1rem 0;">
+          <h2>Proveedores</h2>
+          <%= link_to "Nuevo Proveedor", new_company_path(parent_id: @company.id, relationship_type: 'provider'), class: "btn btn-primary" %>
+        </div>
+        
+        <% @providers.each do |provider| %>
+          <div class="card" style="margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <h4><%= link_to provider.name, provider %></h4>
+                <p><%= provider.email %> | <%= provider.phone %></p>
+              </div>
+              <div>
+                <%= link_to "Ver", provider, class: "btn btn-secondary" %>
+                <%= link_to "Editar", edit_company_path(provider), class: "btn btn-secondary" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0 1rem 0;">
+          <h2>Proveedores</h2>
+          <%= link_to "Nuevo Proveedor", new_company_path(parent_id: @company.id, relationship_type: 'provider'), class: "btn btn-primary" %>
+        </div>
+        <p style="color: #6b7280; font-style: italic;">No hay proveedores registrados</p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

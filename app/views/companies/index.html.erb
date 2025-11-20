@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <h1>Gestión de Empresas</h1>
+      <%= link_to "Nueva Empresa", new_company_path, class: "btn btn-primary" %>
+    </div>
+
+    <h2>Clientes</h2>
+    <div style="margin-bottom: 2rem;">
+      <% @clients.each do |client| %>
+        <div class="card" style="margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3><%= link_to client.name, client %></h3>
+              <p><%= client.email %> | <%= client.phone %></p>
+              <small><%= pluralize(client.contacts.active.count, 'contacto') %> | <%= pluralize(client.subclients.count, 'subcliente') %> | <%= pluralize(client.client_providers.count, 'proveedor') %></small>
+            </div>
+            <div>
+              <%= link_to "Ver", client, class: "btn btn-secondary" %>
+              <%= link_to "Editar", edit_company_path(client), class: "btn btn-secondary" %>
+              <%= link_to "Subcliente", new_company_path(parent_id: client.id, relationship_type: 'subclient'), class: "btn btn-primary" %>
+              <%= link_to "Proveedor", new_company_path(parent_id: client.id, relationship_type: 'provider'), class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <h2>Proveedores</h2>
+    <div>
+      <% @providers.each do |provider| %>
+        <div class="card" style="margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3><%= link_to provider.name, provider %></h3>
+              <p><%= provider.email %> | <%= provider.phone %></p>
+              <small><%= pluralize(provider.contacts.active.count, 'contacto') %></small>
+            </div>
+            <div>
+              <%= link_to "Ver", provider, class: "btn btn-secondary" %>
+              <%= link_to "Editar", edit_company_path(provider), class: "btn btn-secondary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

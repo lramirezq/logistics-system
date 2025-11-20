@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="card welcome-section">
+    <h1>Sistema de Logística</h1>
+    
+    <% if user_signed_in? %>
+      <h2>Bienvenido, <%= current_user.email %>!</h2>
+      <p>Has iniciado sesión correctamente en el sistema.</p>
+    <% else %>
+      <h2>Bienvenido al Sistema de Logística</h2>
+      <p>Gestiona tu cadena de suministro de manera eficiente</p>
+      <div class="auth-links">
+        <%= link_to "Iniciar Sesión", new_user_session_path, class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
